@@ -1,4 +1,4 @@
-#Pseudo-high performance computing (PHPC)  
+##Pseudo-high performance computing (PHPC)  
 Adam B. Smith | Missouri Botanical Garden | adam.smith@mobot.org
 
 This script demonstrates a method for coupling jobs across multiple computers which share a server but otherwise don't "talk" with one another. The procedure is designed for testing a large number of scenarios where the parameters defining the scenarios change in predictable ways (e.g., low/medium/high clustering, low/medium/high spatial heterogeneity, etc.). The procedure is as follows:
