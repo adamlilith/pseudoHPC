@@ -10,6 +10,7 @@ This script demonstrates a method for coupling jobs across multiple computers wh
 			hetero = c('low', 'medium', 'high')  
 		)  
 `
+
 2. When the first computer is started with a job, it creates the data frame. It then generates a set of strings created by pasting the values in each row of the data frame. For example:
 
 `		jobs <- c(  
