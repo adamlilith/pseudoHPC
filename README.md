@@ -9,16 +9,16 @@ This script demonstrates a method for coupling jobs across multiple computers wh
 
 2. When the first computer is started with a job, it creates the data frame. It then generates a set of strings created by pasting the values in each row of the data frame. For example:
 
-`		jobs <- c(  
-			'clustering = 1 hetero = low', \cr
-			'clustering = 1 hetero = medium', \cr 
-			'clustering = 1 hetero = high', \cr
-			'clustering = 2 hetero = low', \cr
-			'clustering = 2 hetero = medium', \cr
-			'clustering = 2 hetero = high', \cr
-			'clustering = 3 hetero = low', \cr
-			'clustering = 3 hetero = medium', \cr
-			'clustering = 3 hetero = high' \cr
+`		jobs <- c(  `
+`			'clustering = 1 hetero = low',  `
+			'clustering = 1 hetero = medium',  
+			'clustering = 1 hetero = high',  
+			'clustering = 2 hetero = low',  
+			'clustering = 2 hetero = medium',  
+			'clustering = 2 hetero = high',  
+			'clustering = 3 hetero = low',  
+			'clustering = 3 hetero = medium',  
+			'clustering = 3 hetero = high'  
 		)
 `
 
