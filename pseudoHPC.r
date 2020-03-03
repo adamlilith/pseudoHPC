@@ -27,30 +27,15 @@
 	### create progress data frame
 	
 	# doing it the hard way... could probably do this more easily with "grid.expand"
-	
-	progress <- data.frame()
-	rot <- c(22.5, 90, 157.5)
-	rho <- c(-0.75, 0, 0.75)
-	sigmaValues <- c(0.1, 0.3, 0.5)
 
-	for (rot in rot) {
-		for (thisRho in rho) {
-			for (countSigma1 in seq_along(sigmaValues)) {
-				for (countSigma2 in countSigma1:length(sigmaValues)) {
-					
-					line <- data.frame(
-						rot=rot,
-						rho=thisRho,
-						sigma1=sigmaValues[countSigma1],
-						sigma2=sigmaValues[countSigma2]
-					)
-					line$job <- paste(names(line), line, collapse=' ', sep='=')
-					progress <- rbind(progress, line)
-					
-				}
-			}
-		}
-	}
+	progress <- expand.grid(
+		rot = c(22.5, 90, 157.5),
+		rho = c(-0.75, 0, 0.75),
+		sigma1 = c(0.1, 0.3, 0.5),
+		sigma2 = c(0.1, 0.3, 0.5)
+	)
+	
+	progress$job <- paste(progress$rot, progress$rho, progress$sigma1, progress$sigma2, sep=' ')
 
 	dir.create('./starts', showWarnings=FALSE)
 	dir.create('./stops', showWarnings=FALSE)
@@ -77,19 +62,19 @@
 		# define parameters for this simulation (just an example!)
 		rot <- progress$rot[doing]
 		thisRho <- progress$rho[doing]
-		thisSigma1 <- progress$sigma1[doing]
-		thisSigma2 <- progress$sigma2[doing]
+		sigma1 <- progress$sigma1[doing]
+		sigma2 <- progress$sigma2[doing]
 
 		# report progress
-		print(paste0('rot = ', rot, ' | rho = ', thisRho, ' | sigma1 = ', thisSigma1, ' | sigma2 = ', thisSigma2))
+		print(paste0('rot = ', rot, ' | rho = ', thisRho, ' | sigma1 = ', sigma1, ' | sigma2 = ', sigma2))
 		flush.console()
 	
 		# some function
 		out <- someFunctionWorthDoing(
 			rot=rot,
 			rho=thisRho
-			sigma1=thisSigma1
-			sigma2=thisSigma2
+			sigma1=sigma1
+			sigma2=sigma2
 		)
 
 		# save results...
@@ -97,7 +82,7 @@
 		# you will want to append the name of the job to the file so it will be
 		# distinct from other files created by other computers/other runs on this
 		# computer!
-		fileName <- paste0('./results/file name ', job, '.RData')
+		fileName <- paste0('./results/file name ', job, '.rda')
 		save(out, file=fileName)
 			
 		# save job file in "completed" folder
