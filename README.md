@@ -5,22 +5,21 @@ This script demonstrates a method for coupling jobs across multiple computers wh
 
 1. Each computer generates a data frame with the different parameters defining different scenarios. The data frames are the same between computers. For example, if you wished to vary clustering across the values 1, 2, and 3 and spatial heterogeneity across values "low", "medium", and "high", then the data frame would look like:
 
-`		progress <- expand.grid(clustering=1:3, hetero = c('low', 'medium', 'high'))
+	`progress <- expand.grid(clustering=1:3, hetero = c('low', 'medium', 'high'))`
 
 2. When the first computer is started with a job, it creates the data frame. It then generates a set of strings created by pasting the values in each row of the data frame. For example:
 
-`		jobs <- c(  `
-`			'clustering = 1 hetero = low',  `
-			'clustering = 1 hetero = medium',  
-			'clustering = 1 hetero = high',  
-			'clustering = 2 hetero = low',  
-			'clustering = 2 hetero = medium',  
-			'clustering = 2 hetero = high',  
-			'clustering = 3 hetero = low',  
-			'clustering = 3 hetero = medium',  
-			'clustering = 3 hetero = high'  
-		)
-`
+	`jobs <- c(  `
+		`'clustering = 1 hetero = low',`  
+		`'clustering = 1 hetero = medium',`  
+		`'clustering = 1 hetero = high',`  
+		`'clustering = 2 hetero = low',`  
+		`'clustering = 2 hetero = medium',`  
+		`'clustering = 2 hetero = high',`  
+		`'clustering = 3 hetero = low',`  
+		`'clustering = 3 hetero = medium',`  
+		`'clustering = 3 hetero = high'`  
+		`)`
 
 Then, the computer writes a very small file (e.g., a CSV file with nothing in it) to a folder on the server named "`starts`" (or something like that). The name of the file is the name of the first job (e.g., "`clustering = 1 hetero = low`"). It then starts on this job.
 
