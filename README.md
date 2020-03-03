@@ -5,28 +5,24 @@ This script demonstrates a method for coupling jobs across multiple computers wh
 
 1. Each computer generates a data frame with the different parameters defining different scenarios. The data frames are the same between computers. For example, if you wished to vary clustering across the values 1, 2, and 3 and spatial heterogeneity across values "low", "medium", and "high", then the data frame would look like:
 
-`		progress <- data.frame(  
-			clustering = c(1, 2, 3),  
-			hetero = c('low', 'medium', 'high')  
-		)  
-`
+`		progress <- expand.grid(clustering=1:3, hetero = c('low', 'medium', 'high'))
 
 2. When the first computer is started with a job, it creates the data frame. It then generates a set of strings created by pasting the values in each row of the data frame. For example:
 
 `		jobs <- c(  
-			'clustering = 1 hetero = low',  
-			'clustering = 1 hetero = medium',  
-			'clustering = 1 hetero = high',  
-			'clustering = 2 hetero = low',  
-			'clustering = 2 hetero = medium',  
-			'clustering = 2 hetero = high',  
-			'clustering = 3 hetero = low',  
-			'clustering = 3 hetero = medium',  
-			'clustering = 3 hetero = high' 
+			'clustering = 1 hetero = low', \cr
+			'clustering = 1 hetero = medium', \cr 
+			'clustering = 1 hetero = high', \cr
+			'clustering = 2 hetero = low', \cr
+			'clustering = 2 hetero = medium', \cr
+			'clustering = 2 hetero = high', \cr
+			'clustering = 3 hetero = low', \cr
+			'clustering = 3 hetero = medium', \cr
+			'clustering = 3 hetero = high' \cr
 		)
 `
 
-Then, the computer writes a very small file (e.g., a CSV file with nothing in it) to a pre-determined folder on the server named "`starts`" (or something like that). The name of the file is the name of the first job (e.g., "`clustering = 1 hetero = low`"). It then starts on this job.
+Then, the computer writes a very small file (e.g., a CSV file with nothing in it) to a folder on the server named "`starts`" (or something like that). The name of the file is the name of the first job (e.g., "`clustering = 1 hetero = low`"). It then starts on this job.
 
 3. When subsequent computers are started they check in the "`starts`" folder where the "job" files are stored. If a job file exists there the computers assume that the job is being done, so look to see if there are any jobs that need done but don't have job files. If so, they choose one, write the job file to "`starts`", and start working on the job.
 
